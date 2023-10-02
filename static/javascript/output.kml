@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="output" id="output">
+	<SimpleField name="altitudeMode" type="string"></SimpleField>
+	<SimpleField name="tessellate" type="int"></SimpleField>
+	<SimpleField name="extrude" type="int"></SimpleField>
+	<SimpleField name="visibility" type="int"></SimpleField>
+</Schema>
+<Folder><name>output</name>
+  <Placemark>
+	<name>#4 M300 RTK 1</name>
+	<ExtendedData><SchemaData schemaUrl="#output">
+		<SimpleData name="altitudeMode">absolute</SimpleData>
+		<SimpleData name="tessellate">-1</SimpleData>
+		<SimpleData name="extrude">0</SimpleData>
+		<SimpleData name="visibility">1</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>8.97850821813985,50.0657285721937,0</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<name>#4 M300 RTK 3</name>
+	<ExtendedData><SchemaData schemaUrl="#output">
+		<SimpleData name="altitudeMode">absolute</SimpleData>
+		<SimpleData name="tessellate">-1</SimpleData>
+		<SimpleData name="extrude">0</SimpleData>
+		<SimpleData name="visibility">1</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>8.97750504903416,50.0660379644444,0</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>
