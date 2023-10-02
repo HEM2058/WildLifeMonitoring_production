@@ -1,0 +1,152 @@
+{% load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WildGeoMonitoring</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<link rel="stylesheet" href="{% static '/css/map.css'%}">
+<link rel="stylesheet" href="{% static '/css/leaflet-calendar.css' %}" />
+<link rel="stylesheet" href="{% static 'css/Control.FullScreen.css' %}" />
+    <!-- Leaflet.Control.Select -->
+<link rel="stylesheet" href="{% static 'css/leaflet.control.select.css' %}" />
+ 
+</head>
+<body>
+
+   
+        <div id="map"></div>
+   
+
+ 
+
+</body>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="{% static './javascript/leaflet-calendar.js' %}"></script>
+<script src="{% static '/javascript/Control.FullScreen.js' %}"></script>
+<script src="{% static '/javascript/map.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+ <!-- Leaflet.Control.Select -->
+<script src="{% static '/javascript/leaflet.control.select.src.js' %}"></script>
+
+
+<script>
+const loadMap6 = () => {
+    
+        let marker;
+        let markers = [];
+        const items = [
+          {
+            id: "",
+            icon: "fa-download",
+            active: true,
+            places: [
+              [53, 13.425],
+              [53.63, 15.18],
+            ],
+          },
+          {
+            id: "wind",
+            icon: "fa-wind",
+            active: true,
+            places: [
+              [51.7, 14.2],
+              [53.6, 11.4],
+              [50.7, 11.8],
+              [49.7, 14.4],
+            ],
+          },
+          {
+            id: "cloud",
+            icon: "fa-cloud",
+            active: true,
+            places: [
+              [48.4, 11.6],
+              [49.4, 12],
+              [48.3, 13.2],
+              [48.5, 21.5],
+              [53.5, 17.1],
+            ],
+          },
+          {
+            id: "cloud-sun",
+            icon: "fa-cloud-sun",
+            active: true,
+            places: [
+              [50.2, 17.8],
+              [48.3, 16.6],
+              [48.5, 19.2],
+              [49.8, 22.1],
+              [51.9, 16.1],
+            ],
+          },
+          {
+            id: "sun",
+            icon: "fa-sun",
+            active: true,
+            places: [
+              [53.4, 20.1],
+              [51.9, 20.1],
+              [23.2, 22.6],
+            ],
+          },
+        ];
+        // method for refreshing map content
+        var redrawMarkers = () => {
+          markers.forEach((marker) => {
+            map.removeLayer(marker);
+          });
+          markers = [];
+          items
+            .filter((s) => s.active)
+            .forEach((group) => {
+              group.places.forEach((place) => {
+                const marker = L.marker(place);
+                marker.setIcon(
+                  L.divIcon({
+                    html:
+                      '<div class="icon"><i class="fa ' +
+                      group.icon +
+                      '" />' +
+                      "</div>",
+                    className: "marker-icon",
+                    iconSize: [40, 40],
+                  })
+                );
+                marker.addTo(map);
+                markers.push(marker);
+              });
+            });
+        };
+        L.control
+          .select({
+            position: "topleft",
+            selectedDefault: items.map((i) => i.id),
+            multi: true,
+            iconChecked: '<i class="fa fa-download" />',
+            iconUnchecked: '<i class="far fa-download" />',
+            iconMain: '<i class="fa fa-layer-group" />',
+            items: items.map((item) => {
+              return {
+                label: '<i class="fa ' + item.icon + '" /> ' + item.id,
+                value: item.id,
+              };
+            }),
+            onSelect: function (selectedItemValues) {
+              items.forEach((item) => {
+                item.active = selectedItemValues.includes(item.id);
+              });
+              redrawMarkers();
+            },
+          })
+          .addTo(map);
+        redrawMarkers();
+      };
+  window.onload = (event) => {
+        console.log("onload");
+        loadMap6();
+      };
+</script>
+</html>
